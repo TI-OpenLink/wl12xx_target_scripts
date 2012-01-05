@@ -28,6 +28,13 @@ sleep 1
 echo "unload driver"
 $RMMOD wl12xx_sdio
 sleep 1
-
-
+$RMMOD wl12xx
+$RMMOD mac80211
+$RMMOD cfg80211
+$RMMOD compat
+sleep 1
+$INSMOD /system/lib/modules/compat.ko
+$INSMOD /system/lib/modules/cfg80211.ko
+$INSMOD /system/lib/modules/mac80211.ko
+$INSMOD /system/lib/modules/wl12xx.ko debug_level=0x63c00
 
