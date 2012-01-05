@@ -1,0 +1,82 @@
+######################################## Texas Instruments - D2I #########################################
+###### Before begining to use MR script you must start as STA or AP ( sta_start.sh or ap_start.sh ) ###### 
+###### <> -- Mandatory parameter 																	######
+###### [] -- Optional parameter 																	######
+###### Script version : v1.1																		######
+##########################################################################################################
+
+** All scripts can be loaded to /data/misc/wifi using "Load MR Scripts.ttl" in Tera Term Application.
+	
+1. sta_add.sh <IP> <New AP Channel> [MAC]
+	Parameters  
+		1. <IP> - Added STA IP
+		2. <New AP Channel> - If required channel is different then hostapd.conf channel, AP will be restarted with required channel. 
+							  "0" says to skip AP reconfiguration. 
+							  Channel enter as number and not as FREQ.
+		3. [MAC] - Added STA MAC
+
+	Example
+		1. "sh sta_add.sh 10.2.46.5 11 08:00:28:13:33:36"
+			It means new role of STA will load and AP will be restarted if his current channel is diffrent when 11.
+		2. "sh sta_add.sh 10.2.46.5 0"
+			It means new role of STA will load and AP will not be restarted.
+			
+2. sta_remove.sh (removes wlan0 interface)	
+	Parameters  
+		None
+		
+-----------------------------------------------------------------------------------------------------------
+	
+3. ap_add.sh <IP> <New AP Channel> [MAC]
+	Parameters  
+		1. <IP> - Added AP IP
+		2. <New AP Channel> - Added AP will be load in required channel.
+							  Channel enter as number and not as FREQ.
+		3. [MAC] - Added AP MAC
+	
+	Example
+		1. "sh ap_add.sh 10.2.46.5 11 08:00:28:13:33:36"
+			It means new role of AP will load and AP will transmit beacon on required channel.
+
+4. ap_remove.sh (removes wlan1 and mon.wlan1 interfaces)
+	Parameters  
+		None
+
+-----------------------------------------------------------------------------------------------------------
+
+5. aGO_add.sh <IP> <New aGO Channel> [MAC]
+	Parameters  
+		1. <IP> - Added aGO IP
+		2. <New aGO Channel> - Added aGO will be load in required channel.
+							  Channel enter as number and not as FREQ.
+		3. [MAC] - Added aGO MAC
+	
+	Example
+		1. "sh aGO_add.sh 10.2.46.5 11 08:00:28:13:33:36"
+			It means new role of aGO will load and aGO will transmit beacon on required channel.
+
+6. aGO_remove.sh (removes p2p_wlan0 and mon.p2p_wlan0 interfaces)
+	Parameters  
+		None
+
+-----------------------------------------------------------------------------------------------------------
+
+7. p2p_add.sh <IP> [MAC]
+	Parameters  
+		1. <IP> - Added P2P Device IP
+		2. [MAC] - Added P2P Device MAC
+	
+	Example
+		1. "sh p2p_add.sh 10.2.46.5 08:00:28:13:33:36"
+			It means new role of P2P Device will load.
+
+8. p2p_remove.sh (removes p2p_wlan0 interface)
+	Parameters  
+		None
+
+		
+
+
+		
+		
+		

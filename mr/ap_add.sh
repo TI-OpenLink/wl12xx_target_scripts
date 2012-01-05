@@ -1,66 +1,56 @@
 #!/system/bin/sh
 
+if [ "$1" == "" -o "$2" == "" ] ; then 
+	echo "Please insert parameters <IP> <NEW_APUT_CHANNEL> [MAC]" 
+	echo "MAC is optional" 
+	echo "ie: ap_add.sh 10.2.47.6 11 08:00:28:13:33:38" 
+	exit 0 
+fi
+
 INSMOD=/system/bin/insmod
-IFCONFIG=/system/bin/ifconfig
+IFCONFIG=/system/xbin/busybox/ifconfig
 HOSTAPD=/system/bin/hostapd
 IW=/system/bin/iw
 HOSTAPD_CONF=/data/misc/wifi/hostapd.conf
 
-if [ "$1"=="" -a "$2"=="" ]; then
-echo "please give MAC and desired MAC address - exiting ..." ; exit 1; fi
-
-WLAN1_MAC=$1
-STA_CHANNEL=$2
-WLAN_IF=wlan1
-WLAN_IP=192.168.43.1
+WLAN_IF_SUT=wlan0
+WLAN_IF_APUT=wlan1
+WLAN_IP=$1
 WLAN_NETMASK=255.255.255.0
+MAC=$3
+CHANNEL=$2
+PHY=`ls /sys/class/ieee80211/`
 
 SERVICE_SUPPLICANT=wpa_supplicant
 SERVICE_HOSTAPD=hostapd_bin
 
-SUPP_STAT=`getprop init.svc.$SERVICE_SUPPLICANT`
-echo "wpa_supplicant state: $SUPP_STAT"
-
-HOSTAPD_STAT=`getprop init.svc.$SERVICE_HOSTAPD`
-echo "hostapd state: $HOSTAPD_STAT"
-if [ "$HOSTAPD_STAT" == "running" ] ; then echo "hostapd is in running state, exiting..." ; exit 0 ; fi
-
-
-sleep 1
-iw wlan0 set power_save off
+echo "setting regulatory domain"
+$IW reg set `grep country_code= $HOSTAPD_CONF | sed "s:country_code=::"`
+$IW reg get
 
 echo "creating new interface"
-$IW `ls /sys/class/ieee80211/` interface add wlan1 type managed
-ifconfig wlan1 hw ether $WLAN1_MAC
+$IW $PHY interface add $WLAN_IF_APUT type managed
+sleep 1
 
-if [ ! -f $HOSTAPD_CONF ] ; then \
-	cp /etc/wifi/hostapd.conf $HOSTAPD_CONF ; \
-	chmod 777 $HOSTAPD_CONF ; \
+if [ "$MAC" != "" ] ; then
+	echo "setting new mac" 
+	$IFCONFIG $WLAN_IF_APUT hw ether $MAC 
 fi
 
-echo "loading hostapd"
-echo "setting the correct channel"
-sed s/channel=[0-9]*/channel=$STA_CHANNEL/ $HOSTAPD_CONF > /data/misc/wifi/tmp.conf
-mv -f /data/misc/wifi/tmp.conf $HOSTAPD_CONF
+if [ ! -f $HOSTAPD_CONF ] ; then 
+	cp /etc/wifi/hostapd.conf $HOSTAPD_CONF 
+fi
+chmod 777 $HOSTAPD_CONF 
 
-sleep 1
+sed -i 's/^channel=[0-9,a-z,A-Z,_,$, ,]*/channel='$CHANNEL'/' $HOSTAPD_CONF
+
+echo "loading hostapd"
 setprop ctl.start $SERVICE_HOSTAPD
 sleep 2
 
 echo "enable interface"
-$IFCONFIG $WLAN_IF up $WLAN_IP netmask $WLAN_NETMASK
+$IFCONFIG $WLAN_IF_APUT $WLAN_IP netmask $WLAN_NETMASK
 sleep 1
-$IFCONFIG $WLAN_IF
-sleep 2
 
 echo "starting dhcp deamon"
 udhcpd -f dhcpd.conf &
-
-
-
-
-
-
-
-
-
