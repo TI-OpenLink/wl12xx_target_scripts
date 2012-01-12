@@ -8,7 +8,7 @@ IW=/system/bin/iw
 
 WLAN_IF=p2p_wlan0
 WLAN_IF_MON=mon.$WLAN_IF
-WLAN_PID=`ps | grep [p2p_]wlan0 | cut -f3 -d' '`
+WLAN_PID=`ps | grep [p2p_]wlan0 | cut -f2 -d' '`
 
 SERVICE_SUPPLICANT=wpa_supplicant
 
