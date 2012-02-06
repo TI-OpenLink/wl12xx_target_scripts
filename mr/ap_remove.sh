@@ -1,4 +1,5 @@
 #!/system/bin/sh
+# System Test ; Script version = 1.1
 
 INSMOD=/system/bin/insmod
 RMMOD=/system/bin/rmmod

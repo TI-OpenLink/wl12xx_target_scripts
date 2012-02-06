@@ -1,4 +1,5 @@
 #!/system/bin/sh
+# System Test ; Script version = 1.1
 
 if [ "$1" == "" -o "$2" == "" ] ; then 
 	echo "Please insert parameters <IP> <NEW_aGO_CHANNEL> [MAC]" 

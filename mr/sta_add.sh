@@ -1,4 +1,5 @@
 #!/system/bin/sh
+# System Test ; Script version = 1.1
 
 if [ "$1" == "" ] ; then 
 	echo "Please insert parameters <IP> <NEW_APUT_CHANNEL> [MAC]" 
@@ -54,7 +55,12 @@ sleep 1
 
 if [ "$CHANNEL" != "$CURRENT_AP_CHANNEL" ] && [ "$CHANNEL" != "0" ] ; then
 	#-------------------------- CHannel Change --------------------
-	sed -i 's/^channel=[0-9,a-z,A-Z,_,$, ,]*/channel='$CHANNEL'/' $HOSTAPD_CONF 
+	if [ "$CHANNEL" -ge 36 ] ; then
+		sed -i 's/^hw_mode=.*/hw_mode=a/' $HOSTAPD_CONF
+	else
+		sed -i 's/^hw_mode=.*/hw_mode=g/' $HOSTAPD_CONF
+	fi
+	sed -i 's/^channel=.*/channel='$CHANNEL'/' $HOSTAPD_CONF
 
 	#---------------------------- STOP_APUT -----------------------
 	echo "kill udhcpd" 
