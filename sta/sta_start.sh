@@ -22,7 +22,7 @@ echo "hostapd state: $HOSTAPD_STAT"
 if [ "$HOSTAPD_STAT" == "running" ] ; then echo "hostapd is in running state, exiting..." ; exit 0 ; fi
 
 echo "loading driver"
-$INSMOD /system/lib/modules/wl12xx_sdio.ko
+$INSMOD /system/lib/modules/wlcore_sdio.ko
 sleep 1
 
 echo "enable interface"
