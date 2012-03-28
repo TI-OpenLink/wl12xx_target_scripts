@@ -1,5 +1,6 @@
 #!/system/bin/sh
-# System Test ; Script version = 1.1
+# System Test ; Script version = 1.2
+# Change in 1.2 : Get PID function improved
 
 INSMOD=/system/bin/insmod
 RMMOD=/system/bin/rmmod
@@ -9,7 +10,7 @@ IW=/system/bin/iw
 
 WLAN_IF=p2p_wlan0
 WLAN_IF_MON=mon.$WLAN_IF
-WLAN_PID=`ps | grep [p2p_]wlan0 | cut -f2 -d' '`
+WLAN_PID=`ps | grep [p2p_]wlan0 | cut -c1-5`
 
 SERVICE_SUPPLICANT=wpa_supplicant
 
