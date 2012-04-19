@@ -49,5 +49,5 @@ $IFCONFIG $WLAN_IF
 sleep 2
 
 echo "starting dhcp deamon"
-udhcpd –f /data/misc/wifi/dhcpd.conf &
+udhcpd -f /data/misc/wifi/dhcpd.conf
 
