@@ -1,3 +1,5 @@
+#!/system/bin/sh
+
 rmmod wlcore_sdio
 rmmod wl18xx
 rmmod wl12xx
