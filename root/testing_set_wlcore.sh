@@ -32,33 +32,40 @@ elif  [ "$1" == "siso40" ] ; then
     ht_mode=${ht_siso40}
 elif  [ "$1" == "mimo" ] ; then
     ht_mode=${ht_mimo}
+else
+    echo "wlcore: not supported"
+    exit 1
 fi
 
 if [ "$hw_type" == "dvp" ]; then
-    if [ ht_mode != ht_mimo ]; then
+    if [ "$ht_mode" != "$ht_mimo" ]; then
 	ini_file=WL8_System_parameters_PG2_RDL_1_5_DVP.ini
     else
 	ini_file=WL8_System_parameters_PG2_RDL_2_7_DVP.ini
     fi
 elif [ "$hw_type" == "hdk_rdl1_rdl5" ]; then
-    if [ ht_mode != ht_mimo ]; then
+    if [ "$ht_mode" != "$ht_mimo" ]; then
 	ini_file=WL8_System_parameters_PG2_RDL_1_5_HDK.ini
     else
 	echo "wlcore: not supported"
 	exit 1
     fi
-elif [ "$hw_type" == "hdk_rdl2_rdl7" ]; then
-    if [ ht_mode != ht_mimo ]; then
+elif [ "$hw_type" == "hdk_rdl2_rdl7" ] || [ "$hw_type" == "hdk" ]; then
+    if [ "$ht_mode" != "$ht_mimo" ]; then
         ini_file=WL8_System_parameters_PG2_RDL_1_5_HDK.ini
     else
         ini_file=WL8_System_parameters_PG2_RDL_2_7_HDK.ini
     fi
+else
+    echo "wlcore: not supported"
+    exit 1
 fi
 
 cd ${wlconf_path}
 wlconf -o ${wl18xx_conf_bin} -I ${ini_files_path}/${ini_file}
 wlconf -i ${wl18xx_conf_bin} -o ${wl18xx_conf_bin} --set wl18xx.ht.mode=${ht_mode}
+wlconf -i ${wl18xx_conf_bin} -g | grep -i "board\|ant\|ht.mode"
 
-echo "wlcore: configuration ok ($load_wlcore_fname)"
+echo "wlcore: configuration ok"
 exit 0
 
