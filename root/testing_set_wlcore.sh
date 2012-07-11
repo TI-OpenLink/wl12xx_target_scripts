@@ -1,7 +1,7 @@
 #!/data/busybox/sh
 #
-# $1 = mimo/siso
-# $2 = hw type - com8/rdl7/etc... (optional)
+# $1 = mimo/siso20/siso40
+# $2 = hw type - rdl1_rdl3/rdl2_rdl4
 
 echo $@
 
@@ -26,6 +26,9 @@ ht_mimo=0
 ht_siso20=2
 ht_siso40=1
 
+#
+# verify ht_mode, options are: siso20, siso40, mimo
+#
 if [ "$1" == "siso20" ] ; then
     ht_mode=${ht_siso20}
 elif  [ "$1" == "siso40" ] ; then
@@ -37,24 +40,24 @@ else
     exit 1
 fi
 
-if [ "$hw_type" == "dvp" ]; then
-    if [ "$ht_mode" != "$ht_mimo" ]; then
-	ini_file=WL8_System_parameters_PG2_RDL_1_5_DVP.ini
-    else
-	ini_file=WL8_System_parameters_PG2_RDL_2_7_DVP.ini
-    fi
-elif [ "$hw_type" == "hdk_rdl1_rdl5" ]; then
-    if [ "$ht_mode" != "$ht_mimo" ]; then
-	ini_file=WL8_System_parameters_PG2_RDL_1_5_HDK.ini
+#
+# select chip type, options are: rdl2_rdl4 (mimo board), rdl1_rdl2 (hp siso board)
+#
+if [ "$hw_type" == "rdl2_rdl4" ] ; then # mimo board
+    if [ "$ht_mode" == "$ht_mimo" ] ; then # mimo
+	ini_file=WL8_System_parameters_PG2_RDL_2_4_SP_MIMO.ini
+    elif [ "$ht_mode" == "$ht_siso40" ] || [ "$ht_mode" == "$ht_siso20" ] ; then # siso
+	ini_file=WL8_System_parameters_PG2_RDL_2_4_SP_SISO.ini
     else
 	echo "wlcore: not supported"
 	exit 1
     fi
-elif [ "$hw_type" == "hdk_rdl2_rdl7" ] || [ "$hw_type" == "hdk" ]; then
-    if [ "$ht_mode" != "$ht_mimo" ]; then
-        ini_file=WL8_System_parameters_PG2_RDL_1_5_HDK.ini
+elif [ "$hw_type" == "rdl1_rdl3" ] ; then # hp siso board
+    if [ "$ht_mode" == "$ht_siso40" ] || [ "$ht_mode" == "$ht_siso20" ] ; then # siso
+        ini_file=WL8_System_parameters_PG2_RDL_1_3_HP_SISO.ini
     else
-        ini_file=WL8_System_parameters_PG2_RDL_2_7_HDK.ini
+	echo "wlcore: not supported"
+	exit 1
     fi
 else
     echo "wlcore: not supported"
