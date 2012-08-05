@@ -67,8 +67,20 @@ fi
 cd ${wlconf_path}
 wlconf -o ${wl18xx_conf_bin} -I ${ini_files_path}/${ini_file}
 wlconf -i ${wl18xx_conf_bin} -o ${wl18xx_conf_bin} --set wl18xx.ht.mode=${ht_mode}
+
+#
+# disabling A band is done by setting number_of_assembled_ant5 to 0
+#
+if [ "$3" != "" ]; then
+    if [ "$3" == "no-a-band" ]; then
+	wlconf -i ${wl18xx_conf_bin} -o ${wl18xx_conf_bin} --set wl18xx.phy.number_of_assembled_ant5=0
+    else
+	echo "wlcore: not supported"
+	exit 1
+    fi
+fi
+
 wlconf -i ${wl18xx_conf_bin} -g | grep -i "board\|ant\|ht.mode"
 
 echo "wlcore: configuration ok"
 exit 0
-
