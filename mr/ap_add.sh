@@ -22,7 +22,7 @@ MAC=$3
 CHANNEL=$2
 PHY=`ls /sys/class/ieee80211/`
 
-SERVICE_SUPPLICANT=wpa_supplicant
+SERVICE_SUPPLICANT=p2p_supplicant
 SERVICE_HOSTAPD=hostapd_bin
 
 echo "setting regulatory domain"
