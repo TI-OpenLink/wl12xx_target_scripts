@@ -68,19 +68,35 @@ cd ${wlconf_path}
 wlconf -o ${wl18xx_conf_bin} -I ${ini_files_path}/${ini_file}
 wlconf -i ${wl18xx_conf_bin} -o ${wl18xx_conf_bin} --set wl18xx.ht.mode=${ht_mode}
 
+if [ "$3" != "" ]; then
+    if [ "$3" == "no-a-band" ]; then
 #
 # disabling A band is done by setting number_of_assembled_ant5 to 0
 #
-if [ "$3" != "" ]; then
-    if [ "$3" == "no-a-band" ]; then
 	wlconf -i ${wl18xx_conf_bin} -o ${wl18xx_conf_bin} --set wl18xx.phy.number_of_assembled_ant5=0
+    elif [ "$3" == "no-recovery" ]; then
+	wlconf -i ${wl18xx_conf_bin} -o ${wl18xx_conf_bin} --set core.recovery.no_recovery=1
     else
 	echo "wlcore: not supported"
 	exit 1
     fi
 fi
 
-wlconf -i ${wl18xx_conf_bin} -g | grep -i "board\|ant\|ht.mode"
+if [ "$4" != "" ]; then
+    if [ "$4" == "no-a-band" ]; then
+#
+# disabling A band is done by setting number_of_assembled_ant5 to 0
+#
+	wlconf -i ${wl18xx_conf_bin} -o ${wl18xx_conf_bin} --set wl18xx.phy.number_of_assembled_ant5=0
+    elif [ "$4" == "no-recovery" ]; then
+	wlconf -i ${wl18xx_conf_bin} -o ${wl18xx_conf_bin} --set core.recovery.no_recovery=1
+    else
+	echo "wlcore: not supported"
+	exit 1
+    fi
+fi
+
+wlconf -i ${wl18xx_conf_bin} -g | grep -i "board\|ant\|ht.mode\|recovery"
 
 echo "wlcore: configuration ok"
 exit 0
