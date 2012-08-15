@@ -2,6 +2,7 @@
 #
 # $1 = mimo/siso20/siso40
 # $2 = hw type - rdl1_rdl3/rdl2_rdl4
+# $3, $4 = Optional no-a-band and/or no-recovery
 
 echo $@
 
