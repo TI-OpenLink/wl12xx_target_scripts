@@ -96,7 +96,7 @@ if [ "$4" != "" ]; then
     fi
 fi
 
-wlconf -i ${wl18xx_conf_bin} -g | grep -i "board\|ant\|ht.mode\|recovery"
+wlconf -i ${wl18xx_conf_bin} -g | grep -i "board\|ant\|ht.mode\|recovery\|dc2dc"
 
 echo "wlcore: configuration ok"
 exit 0
