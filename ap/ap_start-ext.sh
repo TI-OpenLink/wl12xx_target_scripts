@@ -32,13 +32,14 @@ $IW wlan0 del
 $IW `ls /sys/class/ieee80211/` interface add wlan1 type managed
 
 if [ ! -f $HOSTAPD_CONF ] ; then \
-        cp /etc/wifi/hostapd.conf $HOSTAPD_CONF ; \
-        fi
-        chmod 777 $HOSTAPD_CONF
+  cp /etc/wifi/hostapd.conf $HOSTAPD_CONF ; \
+fi
+chmod 777 $HOSTAPD_CONF
 
-        echo "setting regulatory domain"
-        $IW reg set `grep country_code= /data/misc/wifi/hostapd.conf | sed "s:country_code=::"`
-        $IW reg get
+echo "setting regulatory domain"
+$IW reg set `grep country_code= /data/misc/wifi/hostapd.conf | sed "s:country_code=::"`
+$IW reg get
+sleep 2
 
 #Check that AP is not configured to both 40MHz and BG bnad
 BW40=`cat $HOSTAPD_CONF |grep 'HT40'`

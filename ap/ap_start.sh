@@ -37,6 +37,7 @@ chmod 777 $HOSTAPD_CONF
 echo "setting regulatory domain"
 $IW reg set `grep country_code= /data/misc/wifi/hostapd.conf | sed "s:country_code=::"`
 $IW reg get
+sleep 2
 
 echo "loading hostapd"
 setprop ctl.start $SERVICE_HOSTAPD
