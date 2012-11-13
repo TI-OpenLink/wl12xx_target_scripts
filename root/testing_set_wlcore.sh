@@ -35,6 +35,8 @@ elif  [ "$1" == "siso40" ] ; then
     ht_mode=${ht_siso40}
 elif  [ "$1" == "mimo" ] ; then
     ht_mode=${ht_mimo}
+elif  [ "$1" == "default" ] ; then
+    ht_mode=${ht_mimo}
 else
     echo "wlcore: not supported"
     exit 1
@@ -55,6 +57,9 @@ if [ "$hw_type" == "rdl2_rdl4" ] ; then # mimo board
 elif [ "$hw_type" == "rdl1_rdl3" ] ; then # hp siso board
     if [ "$ht_mode" == "$ht_siso40" ] || [ "$ht_mode" == "$ht_siso20" ] ; then # siso
         ini_file=WL8_System_parameters_PG2_RDL_1_3_HP_SISO.ini
+    elif [ "$ht_mode" == "$ht_mimo" ] ; then # mimo
+	echo "using HP siso board in default configuration"
+	ini_file=WL8_System_parameters_PG2_RDL_1_3_HP_SISO.ini
     else
 	echo "wlcore: not supported"
 	exit 1
