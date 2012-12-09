@@ -4,6 +4,7 @@ IW=/system/bin/iw
 INSMOD=/system/bin/insmod
 IFCONFIG=/system/bin/ifconfig
 WPA_SUPPLICANT=/system/bin/wpa_supplicant
+WPA_CLI=/system/bin/wpa_cli
 
 
 SUPPLICANT_CONF=/data/misc/wifi/wpa_supplicant.conf
@@ -60,6 +61,9 @@ chmod 777 $P2P_SUPPLICANT_CONF
 echo "loading supplicant"
 setprop ctl.start "${SERVICE_SUPPLICANT}"
 sleep 1
+
+echo "trigger one shot scan"
+$WPA_CLI -i $WLAN_IF scan
 
 alias p2p_cli="wpa_cli -i p2p0 -p /data/misc/wifi/sockets/"
 
