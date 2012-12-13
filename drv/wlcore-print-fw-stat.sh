@@ -7,8 +7,8 @@ set -e
 export DEV_MEM=`find /sys/kernel/debug/ieee80211/phy*/wlcore/mem  -name "*" -type f | sed  '$!d' -`
 case $1 in
 stat)
-# stat type=ACXStatisticsStruct, bytes=2012
-    echo '    type=ACXStatisticsStruct, bytes=2012'
+# stat type=ACXStatisticsStruct, bytes=2016
+    echo '    type=ACXStatisticsStruct, bytes=2016'
     echo error
         echo '        type=ErrorStatistics_t, bytes=44'
             dd bs=4 count=1 skip=$((0x001014b0/4))  if=$DEV_MEM  2> /dev/null  | hexdump -v -n 4 -e '1/4 "            errorFrame %04x\n"'
@@ -233,6 +233,14 @@ stat)
         echo calibFailCount
             dd bs=4 count=9 skip=$((0x00101c64/4)) if=$DEV_MEM 2> /dev/null | hexdump -v -n 36 -e '16/2 "%04X " "\n"' 
             dd bs=4 count=1 skip=$((0x00101c88/4))  if=$DEV_MEM  2> /dev/null  | hexdump -v -n 4 -e '1/4 "            calibrationCount %04x\n"'
+    echo roam
+        echo '        type=RoamingStatistics_t, bytes=4'
+            dd bs=4 count=1 skip=$((0x00101c8c/4))  if=$DEV_MEM  2> /dev/null  | hexdump -v -n 4 -e '1/4 "            rssiLevel %04x\n"'
+;;
+rssi)
+    echo roam
+        echo '        type=RoamingStatistics_t, bytes=4'
+            dd bs=4 count=1 skip=$((0x00101c8c/4))  if=$DEV_MEM  2> /dev/null  | hexdump -v -n 4 -e '1/4 "            rssiLevel %03d\n"'
 ;;
 *)
     echo Unknown variable $1
