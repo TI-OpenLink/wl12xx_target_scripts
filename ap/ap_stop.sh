@@ -5,7 +5,7 @@ RMMOD=/system/bin/rmmod
 IFCONFIG=/system/bin/ifconfig
 HOSTAPD_CLI=/system/bin/wpa_cli
 
-WLAN_IF=wlan1
+WLAN_IF=wlan0
 
 SERVICE_HOSTAPD=hostapd_bin
 

@@ -6,7 +6,7 @@ HOSTAPD=/system/bin/hostapd
 IW=/system/bin/iw
 HOSTAPD_CONF=/data/misc/wifi/hostapd.conf
 
-WLAN_IF=wlan1
+WLAN_IF=wlan0
 WLAN_IP=192.168.43.1
 WLAN_NETMASK=255.255.255.0
 
@@ -24,10 +24,6 @@ if [ "$HOSTAPD_STAT" == "running" ] ; then echo "hostapd is in running state, ex
 echo "loading driver"
 $INSMOD /system/lib/modules/wlcore_sdio.ko
 sleep 1
-
-echo "creating new interface"
-$IW wlan0 del
-$IW `ls /sys/class/ieee80211/` interface add wlan1 type managed
 
 if [ ! -f $HOSTAPD_CONF ] ; then \
 	cp /etc/wifi/hostapd.conf $HOSTAPD_CONF ; \
