@@ -1,5 +1,10 @@
 #!/system/bin/sh
 
+killall udhcpd
+killall hostapd
+
+exit 0
+
 INSMOD=/system/bin/insmod
 RMMOD=/system/bin/rmmod
 IFCONFIG=/system/bin/ifconfig

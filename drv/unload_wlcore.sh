@@ -1,4 +1,4 @@
-#!/system/bin/sh
+#!/bin/sh
 
 rmmod wlcore_sdio
 rmmod wl18xx

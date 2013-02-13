@@ -1,4 +1,21 @@
-#!/system/bin/sh
+#!/bin/sh
+
+if [ ! -f /home/root/hostapd.conf ] 
+then
+ if [ ! -f /etc/hostapd.conf ]
+ then
+  echo "error - no default hostapd.conf"
+  exit 1
+ fi
+ cp /etc/hostapd.conf /home/root/hostapd.conf
+fi
+
+
+hostapd /home/root/hostapd.conf -B
+touch /home/root/udhcpd.leases
+udhcpd -f /home/root/ap-dhcpd.conf
+
+exit 0
 
 INSMOD=/system/bin/insmod
 IFCONFIG=/system/bin/ifconfig

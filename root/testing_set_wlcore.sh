@@ -1,20 +1,17 @@
-#!/data/busybox/sh
-#
+#!/bin/sh
+
 # $1 = mimo/siso20/siso40
 # $2 = hw type - rdl1_rdl3/rdl2_rdl4
 
 echo $@
 
-# Remount system partition as rw
-mount -o remount rw /system
-
-root_path=/data/misc/wifi
+root_path=/home/root
 hw_type_fname=${root_path}/testing_wl_hw_type.txt
 
-wlconf_path=/system/etc/wifi/wlconf
+wlconf_path=/usr/sbin/wlconf
 ini_files_path=${wlconf_path}/official_inis
 
-wl18xx_conf_bin=/system/etc/firmware/ti-connectivity/wl18xx-conf.bin
+wl18xx_conf_bin=/lib/firmware/ti-connectivity/wl18xx-conf.bin
 
 if [ "$2" != "" ]; then
     echo $2 > $hw_type_fname
@@ -56,7 +53,7 @@ if [ "$hw_type" == "rdl2_rdl4" ] ; then # mimo board
     fi
 elif [ "$hw_type" == "rdl1_rdl3" ] ; then # hp siso board
     if [ "$ht_mode" == "$ht_siso40" ] || [ "$ht_mode" == "$ht_siso20" ] ; then # siso
-        ini_file=WL8_System_parameters_PG2_RDL_1_3_HP_SISO.ini
+	ini_file=WL8_System_parameters_PG2_RDL_1_3_HP_SISO.ini
     elif [ "$ht_mode" == "$ht_mimo" ] ; then # mimo
 	echo "using HP siso board in default configuration"
 	ini_file=WL8_System_parameters_PG2_RDL_1_3_HP_SISO.ini
@@ -70,8 +67,8 @@ else
 fi
 
 cd ${wlconf_path}
-wlconf -o ${wl18xx_conf_bin} -I ${ini_files_path}/${ini_file}
-wlconf -i ${wl18xx_conf_bin} -o ${wl18xx_conf_bin} --set wl18xx.ht.mode=${ht_mode}
+./wlconf -o ${wl18xx_conf_bin} -I ${ini_files_path}/${ini_file}
+./wlconf -i ${wl18xx_conf_bin} -o ${wl18xx_conf_bin} --set wl18xx.ht.mode=${ht_mode}
 
 if [ "$3" != "" ]; then
     if [ "$3" == "no-a-band" ]; then
@@ -101,7 +98,8 @@ if [ "$4" != "" ]; then
     fi
 fi
 
-wlconf -i ${wl18xx_conf_bin} -g | grep -i "board\|ant\|ht.mode\|recovery\|dc2dc"
+./wlconf -i ${wl18xx_conf_bin} -g | grep -i "board\|ant\|ht.mode\|recovery\|dc2dc\|sta_sleep_auth"
 
 echo "wlcore: configuration ok"
 exit 0
+

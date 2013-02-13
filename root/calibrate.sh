@@ -1,4 +1,4 @@
-#!/system/bin/sh
+#!/bin/sh
 
 #
 # calibrate.sh
@@ -24,10 +24,10 @@
 #
 
 echo "removing current nvs file"
-rm /system/etc/firmware/ti-connectivity/wl1271-nvs.bin
+rm /etc/firmware/ti-connectivity/wl1271-nvs.bin
 
 echo "creating new nvs file using autocalibrate command"
-calibrator plt autocalibrate wlan0 /system/lib/modules/wl12xx_sdio.ko $1 /etc/firmware/ti-connectivity/wl1271-nvs.bin $2
+calibrator plt autocalibrate wlan0 /lib/modules/wlcore_sdio.ko $1 /etc/firmware/ti-connectivity/wl1271-nvs.bin $2
 
 echo "dumping nvs content:"
 calibrator get dump_nvs /etc/firmware/ti-connectivity/wl1271-nvs.bin

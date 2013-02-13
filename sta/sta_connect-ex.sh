@@ -1,3 +1,5 @@
+#!/bin/sh
+
 NETID=0
 WPA_CLI='wpa_cli'
 if [ $# -eq 0 ] || [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
@@ -8,28 +10,33 @@ if [ $# -eq 0 ] || [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
     echo "supported key-mgmt: NONE, WPA-PSK"
     exit
 fi
-NETID=`$WPA_CLI add_network | grep -v Using`
+
+NETID=`$WPA_CLI add_network | grep -v Using | grep -v Selected`
+
 echo "netid="$NETID
 echo "========================="
-echo $WPA_CLI set_network $NETID ssid \'\""$1"\"\' > /data/misc/wifi/temp.txt
+echo $WPA_CLI set_network $NETID ssid \'\""$1"\"\' > /home/root/temp.txt
 
 if [ $# -gt 1 ]; then
     if [ "$2" == "WPA-PSK" ] || [ "$2" == "NONE" ] ; then
-       echo $WPA_CLI set_network $NETID key_mgmt "$2" >> /data/misc/wifi/temp.txt
+       echo $WPA_CLI set_network $NETID key_mgmt "$2" >> /home/root/temp.txt
     else
        echo "Sorry, but only WPA-PSK and NONE key_mgmt is supported"
        exit
     fi
 else
-    echo $WPA_CLI set_network $NETID key_mgmt NONE >> /data/misc/wifi/temp.txt
+    echo $WPA_CLI set_network $NETID key_mgmt NONE >> /home/root/temp.txt
 fi
 
 if [ $# -gt 2 ]; then
-    echo $WPA_CLI set_network $NETID psk \'\""$3"\"\' >> /data/misc/wifi/temp.txt
+    echo $WPA_CLI set_network $NETID psk \'\""$3"\"\' >> /home/root/temp.txt
 fi
 
 
-echo $WPA_CLI select_network $NETID >> /data/misc/wifi/temp.txt
-chmod 777 /data/misc/wifi/temp.txt
-sh /data/misc/wifi/temp.txt
-rm /data/misc/wifi/temp.txt
+echo $WPA_CLI select_network $NETID >> /home/root/temp.txt
+chmod 777 /home/root/temp.txt
+sh /home/root/temp.txt
+rm /home/root/temp.txt
+
+#udhcpc -i wlan0
+

@@ -1,3 +1,5 @@
+#!/bin/sh
+
 wpa_cli disconnect
 for i in `wpa_cli list_networks | grep ^[0-9] | cut -f1`; do wpa_cli remove_network $i; done
 wpa_cli add_network
@@ -13,3 +15,4 @@ wpa_cli select_network 0
 wpa_cli enable_network 0
 wpa_cli reassociate
 wpa_cli status
+
