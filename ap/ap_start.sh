@@ -13,7 +13,13 @@ fi
 
 echo 1 > /proc/sys/net/ipv4/ip_forward
 
-ifconfig wlan0 192.168.0.1
+if [ ! -d /sys/class/net/wlan1 ]
+then
+  echo "adding wlan1 interface"
+  iw phy `ls /sys/class/ieee80211/` interface add wlan1 type managed
+fi
+
+ifconfig wlan1 192.168.43.1
 hostapd -B /usr/share/wl18xx/hostapd.conf -P /var/run/hostapd.pid
 udhcpd /etc/udhcpd.conf
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
