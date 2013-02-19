@@ -26,7 +26,7 @@ then
   iw phy `ls /sys/class/ieee80211/` interface add p2p0 type managed
 fi
 
-wpa_supplicant -e/home/root/entropy.bin \
+wpa_supplicant -B -e/home/root/entropy.bin \
 	-ip2p0 -Dnl80211 -c/home/root/p2p_supplicant.conf -N \
-	-iwlan0 -Dnl80211 -c/home/root/wpa_supplicant.conf & \
+	-iwlan0 -Dnl80211 -c/home/root/wpa_supplicant.conf \
 
