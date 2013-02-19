@@ -1,6 +1,3 @@
-#!/system/bin/sh
+#!/bin/sh
 
-WPA_CLI=/system/bin/wpa_cli
-WLAN_IF=/data/misc/wifi/sockets/p2p0
-
-$WPA_CLI -i$WLAN_IF $@
+wpa_cli -i p2p0 -p /var/run/wpa_supplicant/

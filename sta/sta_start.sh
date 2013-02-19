@@ -12,13 +12,21 @@ fi
 
 if [ ! -f /home/root/p2p_supplicant.conf ] 
 then
- cp /home/root/wpa_supplicant.conf /home/root/p2p_supplicant.conf
- sed -rie "s/ctrl_interface=\/var\/run\/wpa_supplicant/ctrl_interface=p2p0/" /home/root/p2p_supplicant.conf
+ if [ ! -f /etc/p2p_supplicant.conf ]
+ then
+  echo "error - no default p2p_supplicant.conf"
+  exit 1
+ fi
+ cp /etc/p2p_supplicant.conf /home/root/p2p_supplicant.conf
 fi
 
-iw phy `ls /sys/class/ieee80211/` interface add p2p0 type station
+if [ ! -d /sys/class/net/p2p0 ]
+then
+  echo "adding p2p0 interface"
+  iw phy `ls /sys/class/ieee80211/` interface add p2p0 type managed
+fi
 
-wpa_supplicant -B -e/home/root/entropy.bin \
-	-iwlan0 -Dnl80211 -c/home/root/wpa_supplicant.conf -N \
-	-ip2p0 -Dnl80211 -c/home/root/p2p_supplicant.conf
+wpa_supplicant -e/home/root/entropy.bin \
+	-ip2p0 -Dnl80211 -c/home/root/p2p_supplicant.conf -N \
+	-iwlan0 -Dnl80211 -c/home/root/wpa_supplicant.conf & \
 
