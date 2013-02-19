@@ -1,4 +1,4 @@
-#!/system/bin/sh
+#!/bin/sh
 # System Test ; Script version = 1.1
 
 if [ "$1" == "" ] ; then 

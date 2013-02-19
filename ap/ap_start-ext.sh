@@ -1,4 +1,4 @@
-#!/system/bin/sh
+#!/bin/sh
 
 INSMOD=/system/bin/insmod
 IFCONFIG=/system/bin/ifconfig
