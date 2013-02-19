@@ -1,5 +1,5 @@
 wlconf_path=/usr/sbin/wlconf
-wlconf_scripts_path=/home/root/scripts/wlconf
+wlconf_scripts_path=/usr/share/wl18xx/scripts/wlconf
 wl18xx_conf_bin=/lib/firmware/ti-connectivity/wl18xx-conf.bin
 
 rmmod wl18xx
