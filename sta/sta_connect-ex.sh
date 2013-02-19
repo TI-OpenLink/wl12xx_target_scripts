@@ -1,7 +1,7 @@
 #!/bin/sh
 
 NETID=0
-WPA_CLI='wpa_cli'
+WPA_CLI='wpa_cli -i wlan0'
 if [ $# -eq 0 ] || [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
     echo ""
     echo "You must specify at least the network ssid"
