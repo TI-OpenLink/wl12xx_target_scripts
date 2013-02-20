@@ -1,5 +1,11 @@
 #!/bin/sh
 
+if ps | grep -v grep | grep wpa_supplicant > /dev/null
+then
+    echo "wpa_supplicant is already runningx"
+    exit 0
+fi
+
 if [ ! -f /usr/share/wl18xx/wpa_supplicant.conf ] 
 then
  if [ ! -f /etc/wpa_supplicant.conf ]
