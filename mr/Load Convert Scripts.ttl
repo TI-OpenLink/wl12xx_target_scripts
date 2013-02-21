@@ -1,8 +1,0 @@
-sendln 'cd /data/misc/wifi/'
-sendln 'sh remount_rw.sh'
-sendln 'rm -r FreqToCh.sh'
-sendln 'rm -r ChToFreq.sh'
-sendln 'ftpget 20.1.1.10 FreqToCh.sh FreqToCh.sh'
-sendln 'ftpget 20.1.1.10 ChToFreq.sh ChToFreq.sh'
-sendln 'chmod 777 *'
-sendln 'dos2unix *.sh'

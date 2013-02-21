@@ -1,23 +1,24 @@
 #!/bin/sh
 # System Test ; Script version = 1.1
 
-INSMOD=/system/bin/insmod
-RMMOD=/system/bin/rmmod
-IFCONFIG=/system/bin/ifconfig
-HOSTAPD_CLI=/system/bin/wpa_cli
-IW=/system/bin/iw
+INSMOD=/sbin/insmod
+RMMOD=/sbin/rmmod
+IFCONFIG=/sbin/ifconfig
+HOSTAPD_CLI=/usr/local/bin/hostapd_cli
+IW=/usr/sbin/iw
+SERVICE_HOSTAPD=hostapd_bin
+
 
 WLAN_IF=wlan1
 WLAN_IF_MON=mon.$WLAN_IF
 
-SERVICE_HOSTAPD=hostapd_bin
-
-echo "kill udhcpd"
-killall udhcpd
 
 echo "unload hostapd"
-setprop ctl.stop $SERVICE_HOSTAPD
+killall hostapd
 sleep 1
+
+echo "kill udhcpd"
+killall -9 udhcpd
 
 echo "disable interface"
 $IFCONFIG $WLAN_IF down
