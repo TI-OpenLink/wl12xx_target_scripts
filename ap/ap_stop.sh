@@ -36,5 +36,5 @@ sleep 1
 $INSMOD /system/lib/modules/compat.ko
 $INSMOD /system/lib/modules/cfg80211.ko
 $INSMOD /system/lib/modules/mac80211.ko
-$INSMOD /system/lib/modules/wl12xx.ko debug_level=0x63c00
+$INSMOD /system/lib/modules/wl12xx.ko
 
