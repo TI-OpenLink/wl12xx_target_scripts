@@ -33,6 +33,6 @@ then
 fi
 
 wpa_supplicant -B -e/usr/share/wl18xx/entropy.bin \
-	-ip2p0 -Dnl80211 -c/usr/share/wl18xx/p2p_supplicant.conf -N \
-	-iwlan0 -Dnl80211 -c/usr/share/wl18xx/wpa_supplicant.conf \
+        -iwlan0 -Dnl80211 -c/usr/share/wl18xx/wpa_supplicant.conf -N \
+	-ip2p0 -Dnl80211 -c/usr/share/wl18xx/p2p_supplicant.conf 
 
