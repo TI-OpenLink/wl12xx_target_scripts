@@ -66,9 +66,9 @@ if [ "$3" != "" ]; then
 #
 # disabling A band is done by setting number_of_assembled_ant5 to 0
 #
-	wlconf -i ${wl18xx_conf_bin} -o ${wl18xx_conf_bin} --set wl18xx.phy.number_of_assembled_ant5=0
+	./wlconf -i ${wl18xx_conf_bin} -o ${wl18xx_conf_bin} --set wl18xx.phy.number_of_assembled_ant5=0
     elif [ "$3" == "no-recovery" ]; then
-	wlconf -i ${wl18xx_conf_bin} -o ${wl18xx_conf_bin} --set core.recovery.no_recovery=1
+	./wlconf -i ${wl18xx_conf_bin} -o ${wl18xx_conf_bin} --set core.recovery.no_recovery=1
     else
 	echo "wlcore: not supported"
 	exit 1
@@ -80,9 +80,9 @@ if [ "$4" != "" ]; then
 #
 # disabling A band is done by setting number_of_assembled_ant5 to 0
 #
-	wlconf -i ${wl18xx_conf_bin} -o ${wl18xx_conf_bin} --set wl18xx.phy.number_of_assembled_ant5=0
+	./wlconf -i ${wl18xx_conf_bin} -o ${wl18xx_conf_bin} --set wl18xx.phy.number_of_assembled_ant5=0
     elif [ "$4" == "no-recovery" ]; then
-	wlconf -i ${wl18xx_conf_bin} -o ${wl18xx_conf_bin} --set core.recovery.no_recovery=1
+	./wlconf -i ${wl18xx_conf_bin} -o ${wl18xx_conf_bin} --set core.recovery.no_recovery=1
     else
 	echo "wlcore: not supported"
 	exit 1
