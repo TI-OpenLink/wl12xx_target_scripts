@@ -1,0 +1,2 @@
+killall hostapd
+killall udhcpd
