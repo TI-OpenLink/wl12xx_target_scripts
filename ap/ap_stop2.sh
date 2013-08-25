@@ -1,6 +1,12 @@
-#!/bin/sh           
-ps | grep h[o]stapd2                  
+#!/bin/sh
+ehco "Terminating 2nd AP"
+ps | grep h[o]stapd2
 output=`ps |grep h[o]stapd2`
-set -- $output              
-echo $1                     
+set -- $output
 kill $1
+
+
+
+ps | grep u[d]hcpd2
+output=`ps | grep u[d]hcpd2`
+set -- $output
