@@ -1,13 +1,11 @@
 #!/bin/sh
-echo "Terminating 2nd AP"
-#ps | grep h[o]stapd2
-output=`ps |grep h[o]stapd2`
-set -- $output
-kill $1
+ap2_pid=$(<"/var/run/hostapd2.pid")
+echo "Terminating 2nd AP - pid " $ap2_pid
 
+kill $ap2_pid
 
 
 #ps | grep u[d]hcpd2
 output=`ps | grep u[d]hcpd2`
 set -- $output
-kill $1 
+kill $1

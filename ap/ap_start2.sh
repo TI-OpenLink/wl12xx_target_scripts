@@ -8,6 +8,6 @@ then
   iw phy `ls /sys/class/ieee80211/` interface add wlan2 type managed
 fi
 
-hostapd -B /usr/share/wl18xx/hostapd2.conf -P /var/run/hostapd.pid
+hostapd -B /usr/share/wl18xx/hostapd2.conf -P /var/run/hostapd2.pid
 ifconfig wlan2 192.168.53.1
 udhcpd /usr/share/wl18xx/udhcpd2.conf
