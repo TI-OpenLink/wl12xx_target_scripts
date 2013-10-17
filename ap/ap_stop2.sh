@@ -2,7 +2,7 @@
 ap2_pid=$(<"/var/run/hostapd2.pid")
 echo "Terminating 2nd AP - pid " $ap2_pid
 
-if [ -n "$ap_pid" ]; then
+if [ -n "$ap2_pid" ]; then
   kill $ap2_pid
 fi
 
