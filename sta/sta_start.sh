@@ -32,7 +32,7 @@ then
   iw phy `ls /sys/class/ieee80211/` interface add p2p0 type managed
 fi
 
-wpa_supplicant -B -e/usr/share/wl18xx/entropy.bin \
+wpa_supplicant  -e/usr/share/wl18xx/entropy.bin \
         -iwlan0 -Dnl80211 -c/usr/share/wl18xx/wpa_supplicant.conf -N \
-	-ip2p0 -Dnl80211 -c/usr/share/wl18xx/p2p_supplicant.conf 
+	-ip2p0 -Dnl80211 -c/usr/share/wl18xx/p2p_supplicant.conf &
 

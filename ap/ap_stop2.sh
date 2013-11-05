@@ -1,10 +1,11 @@
 #!/bin/sh
-ap2_pid=$(<"/var/run/hostapd2.pid")
-echo "Terminating 2nd AP - pid " $ap2_pid
+echo "Terminating 2nd AP "
 
-if [ -n "$ap2_pid" ]; then
-  kill $ap2_pid
-fi
+ps | grep h[o]stapd2
+output=`ps |grep h[o]stapd2`
+set -- $output
+kill $1
+
 
 #ps | grep u[d]hcpd2
 output=`ps | grep u[d]hcpd2`
