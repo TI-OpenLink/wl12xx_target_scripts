@@ -22,5 +22,4 @@ fi
 hostapd /usr/share/wl18xx/hostapd.conf -P /var/run/hostapd.pid &
 ifconfig wlan1 192.168.43.1
 udhcpd /usr/share/wl18xx/udhcpd.conf
-#iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
