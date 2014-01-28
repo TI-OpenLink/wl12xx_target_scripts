@@ -42,6 +42,7 @@ fi
 if [ ! -r $HOSTAPD_GLOBAL ]
 then
  hostapd -g $HOSTAPD_GLOBAL &
+ sleep 1
 fi
 
 ### add ap interface
