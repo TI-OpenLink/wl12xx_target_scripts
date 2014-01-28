@@ -1,21 +1,24 @@
 #!/bin/sh
 
-echo "Terminating 1st AP "
+########## variables ##########
 
-#ps | grep -v hostapd2 | grep h[o]stapd
-output=`ps | grep -v hostapd2 | grep h[o]stapd`
+WLAN=wlan1
+HOSTAPD_GLOBAL=/var/run/hostapd_global
+DHCP_CONF=ud[h]cpd.conf
+
+########## body ##########
+
+echo "Terminating #WLAN"
+hostapd_cli -g $HOSTAPD_GLOBAL raw REMOVE $WLAN
+
+output=`ps | grep $DHCP_CONF`
 set -- $output
-kill $1
-
-#ps | grep -v udhcpd2 | grep u[d]hcpd
-output=`ps | grep -v udhcpd2 | grep u[d]hcpd`
-set -- $output
-
 if [ -n "$output" ]; then
  kill $1
 fi
 
-if [ -d /sys/class/net/wlan1 ]
+if [ -d /sys/class/net/$WLAN ]
 then
- iw wlan1 del
+ iw $WLAN del
 fi
+
