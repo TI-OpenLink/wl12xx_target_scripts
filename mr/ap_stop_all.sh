@@ -1,12 +1,4 @@
+sh ap_stop.sh
+sh ap_stop2.sh
 killall hostapd
-killall udhcpd
 
-if [ -d /sys/class/net/wlan1 ]
-then
- iw wlan1 del
-fi
-
-if [ -d /sys/class/net/wlan2 ]
-then
- iw wlan2 del
-fi
