@@ -47,7 +47,7 @@ then
 fi
 
 ### add ap interface
-$HOSTAPD_CLI/hostapd_cli -g $HOSTAPD_GLOBAL raw ADD $WLAN config=$HOSTAPD_CONF enable=1
+$HOSTAPD_BIN_DIR/hostapd_cli -g $HOSTAPD_GLOBAL raw ADD $WLAN config=$HOSTAPD_CONF enable=1
 
 ### configure ip
 ifconfig $WLAN $IP_ADDR netmask 255.255.255.0 up
